@@ -103,11 +103,11 @@ TSet TSet::operator~(void) // дополнение
 istream &operator>>(istream &istr, TSet &s) // ввод
 {
 	int tmp; char ch;
-	do (istr >> ch;) while (ch != '{');
-	do (
+	do { istr >> ch; } while (ch != '{');
+	do {
 		istr >> tmp; s.InsElem(tmp);
-	do (istr >> ch;) while ((ch != ',') && (ch != '}'));
-	) while (ch != '}');
+		do { istr >> ch; } while ((ch != ',') && (ch != '}'));
+	} while (ch != '}');
 	return istr;
 }
 

@@ -7,9 +7,9 @@
 
 #include "tbitfield.h"
 
-TBitField::TBitField(int len): BitLen(Len) 
+TBitField::TBitField(int len): BitLen(len) 
 {
-	MemLen = (Len + 15) >> 4;
+	MemLen = (len + 15) >> 4;
 	pMem = new TELEM[MemLen];
 	if (pMem != NULL)
 		for (int i = 0; i < MemLen; i++) pMem[i] = 0;
@@ -112,8 +112,8 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-	int i; len = BitLen;
-	if (bf.BitLen.len)len = bf.BitLen;
+	int i, len = BitLen;
+	if (bf.BitLen>len)len = bf.BitLen;
 	TBitField temp(len);
 	for (i = 0; i < MemLen; i++) temp.pMem[i] = pMem[i];
 	for (i = 0; i < bf.MemLen; i++)temp.pMem[i] |= bf.pMem[i];
@@ -122,8 +122,8 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-	int i; len = BitLen;
-	if (bf.BitLen.len)len = bf.BitLen;
+	int i, len = BitLen;
+	if (bf.BitLen>len)len = bf.BitLen;
 	TBitField temp(len);
 	for (i = 0; i < MemLen; i++) temp.pMem[i] = pMem[i];
 	for (i = 0; i < bf.MemLen; i++)temp.pMem[i] &= bf.pMem[i];
@@ -135,6 +135,7 @@ TBitField TBitField::operator~(void) // отрицание
 	int len = BitLen;
 	TBitField temp(len);
 	for (int i = 0; i < MemLen; i++) temp.pMem[i] = ~pMem[i];
+	return temp;
 }
 
 // ввод/вывод
@@ -142,7 +143,7 @@ TBitField TBitField::operator~(void) // отрицание
 istream &operator >> (istream &istr, TBitField &bf) // ввод
 {
 	int i = 0; char ch;
-	do(istr >> ch;) while (ch != ' ');
+	do { istr >> ch; } while (ch != ' ');
 	while (1)
 	{
 		istr >> ch;
