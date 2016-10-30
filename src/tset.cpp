@@ -74,16 +74,24 @@ TSet TSet::operator+(const TSet &s) // объединение
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
-	TSet tmp(BitField);
-	tmp.BitField.SetBit(Elem);
-	return tmp;
+	if ((Elem < MaxPower) && (Elem >= 0))
+	{
+		TSet tmp(BitField);
+		tmp.BitField.SetBit(Elem);
+		return tmp;
+	}
+	else throw 1;
 }
 
 TSet TSet::operator-(const int Elem) // разность с элементом
 {
+	if ((Elem < MaxPower) && (Elem >= 0))
+	{
 	TSet tmp(BitField);
 	tmp.BitField.ClrBit(Elem);
 	return tmp;
+	}
+	else throw 1;
 }
 
 TSet TSet::operator*(const TSet &s) // пересечение
