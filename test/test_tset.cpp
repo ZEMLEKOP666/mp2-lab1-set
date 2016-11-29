@@ -295,3 +295,21 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, check_plus_operator_on_three_sets)
+{
+	const int size = 4;
+	TSet set1(size), set2(size), set3(size), set4(size);
+	// set1 = {1}
+	set1.InsElem(1);
+	// set2={2}
+	set2.InsElem(2);
+	// set3={3}
+	set3.InsElem(3);
+	// set4={1, 2, 3}
+	set4.InsElem(1);
+	set4.InsElem(2);
+	set4.InsElem(3);
+	
+	EXPECT_EQ(set1+set2+set3, set4);
+}
